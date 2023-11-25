@@ -65,6 +65,7 @@ Important things to note here:
 - `arr/` is located at the filesystem root, aka `/arr/`.
 - `movies/` and `tv/` are **mount points** for high-capacity HDDs.
 - `Movies/` and `TV_Shows/` are directories located at the root of their respective HDD.
+- qBittorrent requires a path to exist at `/home/phoenix/qbit`. I will try to resolve this.
 
 ## How does it work?
 
