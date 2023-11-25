@@ -32,9 +32,9 @@ Some interesting things included with this stack:
 
 I'm still working on this. For now just clone the repo and see if you can figure it out. At the very least, you will need to:
 
-- Set your timezone in `compose.yml`
-- Set your domain name in `Caddyfile`
-- Add a bcrypt hash to `Caddyfile` ([generate one here](https://bcrypt.online/))
+- Set your timezone in `docker/compose.yml`
+- Set your domain name in `docker/caddy/Caddyfile`
+- Add a bcrypt hash to `docker/caddy/Caddyfile` ([generate one here](https://bcrypt.online/))
 - Any other edits you wish to make
 
 ### Filesystem layout
