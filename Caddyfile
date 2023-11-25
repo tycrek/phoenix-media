@@ -1,0 +1,61 @@
+{
+  # alternate internal ports for Caddy container
+  http_port 8080
+  https_port 8443
+}
+
+###
+### Mixins
+###
+
+(core) {
+  redir /{args.0} /{args.0}/
+  reverse_proxy /{args.0}/* {args.0}:{args.1}
+}
+
+(serve_media) {
+  redir /{args.0} /{args.0}/
+  handle_path /{args.0}/* {
+  root * /{args.0}
+    file_server browse
+  }
+}
+
+###
+### Domain rules
+###
+
+# emby media server
+example.stream, www.example.stream, http://example.stream, http://www.example.stream {
+  redir https://example.stream:8920{uri}
+}
+
+# core services
+core.example.stream {
+  redir / https://example.stream
+
+  import core sonarr 8989
+  import core radarr 7878
+  import core bazarr 6767
+  import core prowlarr 9696
+
+  redir /qbit /qbit/
+  handle_path /qbit/* {
+    reverse_proxy qbit:8080
+  }
+}
+
+# direct file access
+direct.example.stream {
+  basicauth {
+    pirate <paste a bcrypt hash here>
+  }
+
+  # Serve landing page
+  root * /www
+  file_server
+
+  # Serve media
+  import serve_media movies
+  import serve_media tv
+}
