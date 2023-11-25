@@ -1,0 +1,57 @@
+networks:
+  arrnet:
+    driver: bridge
+services:
+  bazarr: &arr
+    container_name: bazarr
+    image: ghcr.io/hotio/bazarr
+    restart: always
+    networks:
+      - arrnet
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - UMASK=002
+      - TZ=America/Edmonton
+    volumes:
+      - /arr/tv/TV_Shows:/tv
+      - /arr/movies/Movies:/movies
+      - /home/phoenix/qbit:/qbit
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 400M
+  prowlarr:
+    <<: *arr
+    container_name: prowlarr
+    image: ghcr.io/hotio/prowlarr
+  radarr:
+    <<: *arr
+    container_name: radarr
+    image: ghcr.io/hotio/radarr
+  sonarr:
+    <<: *arr
+    container_name: sonarr
+    image: ghcr.io/hotio/sonarr
+  qbit:
+    <<: *arr
+    container_name: qbit
+    image: ghcr.io/hotio/qbittorrent
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 10G
+        reservations:
+          cpus: '2'
+          memory: 5G
+  caddy:
+    <<: *arr
+    container_name: caddy
+    image: ghcr.io/hotio/caddy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "80:8080"
+      - "443:8443"
