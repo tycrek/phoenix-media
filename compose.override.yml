@@ -1,0 +1,20 @@
+services:
+  bazarr:
+    volumes:
+      - /arr/docker/bazarr:/config
+  prowlarr:
+    volumes:
+      - /arr/docker/prowlarr:/config
+  qbit:
+    volumes:
+      - /arr/docker/qbit:/config
+  radarr:
+    volumes:
+      - /arr/docker/radarr:/config
+  sonarr:
+    volumes:
+      - /arr/docker/sonarr:/config
+  caddy:
+    volumes:
+      - /arr/docker/caddy:/config
+      - /arr/direct-www:/www
