@@ -1,1 +1,1 @@
-*.* -linguist-detectable
+*.yml linguist-detectable=true
