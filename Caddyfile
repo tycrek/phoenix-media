@@ -25,7 +25,7 @@
 ### Domain rules
 ###
 
-# emby media server
+# media server
 example.stream, www.example.stream, http://example.stream, http://www.example.stream {
   redir https://example.stream:8920{uri}
 }
